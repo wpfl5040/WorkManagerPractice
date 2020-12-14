@@ -39,6 +39,8 @@
    - Result.failure(): 작업에 실패했습니다.
    - Result.retry(): 작업에 실패했으며 재시도 정책에 따라 다른 시점에 시도되어야 합니다.
    
+   - success, failure, cancelled 상태라면 WorkInfo.State.isFinished() 는 true를 반환 
+   
    ## WorkRequest
    - 작업을 정의하고 나면 실행을 위해 WorkManager 서비스로 예약
    - 일정한 간격으로 주기적으로 실행되도록 예약하거나 한 번만 실행되도록 예약할 수 있습니다.
@@ -55,10 +57,21 @@
     .enqueue(uploadWorkRequest)
    ```
    
+   ## Chaining work together
+   ```
+    fun chainWorks(filter1: Work, filter2: Work, compress: Work, upload: Work) {
+      WorkManager.getInstance()
+        .beginWith(listOf(filter1, filter2)) //동시실행
+        .then(compress) //beginWith 끝난뒤
+        .then(upload) //compress 끝난뒤
+        .enqueue()
+    }
+   ```
    
    
    
    # 참고자료
    - https://developer.android.com/topic/libraries/architecture/workmanager/basics?hl=ko
    - https://medium.com/@joongwon/jetpack-android-background%EB%8A%94-workmanager%EC%97%90%EA%B2%8C-%EB%A7%A1%EA%B8%B0%EC%84%B8%EC%9A%94-5f6d97331ff3
+   - https://beomseok95.tistory.com/194
    

@@ -1,10 +1,9 @@
 package com.wpfl5.workmanagerpractice
 
-import android.app.NotificationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
+import com.wpfl5.workmanagerpractice.utils.NotiUtil
 
 class NotiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
